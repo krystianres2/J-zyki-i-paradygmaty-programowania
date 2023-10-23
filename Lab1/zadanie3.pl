@@ -1,0 +1,38 @@
+osoba(krystian, mariusz, urszula, mê¿czyzna, 20).
+osoba(anna, mariusz, urszula, kobieta, 12).
+osoba(mariusz, józef, barbara, mê¿czyzna, 47).
+osoba(urszula, kazimierz, kazimiera, kobieta, 47).
+osoba(józef, null, null, mê¿czyzna, 77).
+osoba(barbara, null, null, kobieta, 75).
+osoba(kazimierz, null, null, mê¿czyzna, 74).
+osoba(kazimiera, null, null, kobieta, 74).
+osoba(ma³gorzata, józef, barbara, kobieta, 47).
+osoba(grzegorz, kazimierz, kazimiera, mê¿czyzna, 42).
+osoba(kamila, kazimierz, kazimiera, kobieta, 45).
+osoba(krzysztof, kazimierz, kazimiera, mê¿czyzna, 37).
+osoba(stefan, kazimierz, kazimiera, mê¿czyzna, 40).
+
+
+
+
+dziecko(X, Y):- (osoba(X, Y, _, _, _) ; osoba(X, _, Y, _, _)), Y\=null.
+rodzic(X, Y):- dziecko(Y, X).
+
+siostra(X, Y) :- rodzeñstwo(X, Y), osoba(X, _, _, kobieta, _), X\=Y.
+brat(X, Y) :- rodzeñstwo(X, Y), osoba(X, _, _, mê¿czyzna, _) .
+syn(X, Y) :- dziecko(X, Y), osoba(X, _, _, mê¿czyzna, _), X\=Y.
+córka(X, Y) :- dziecko(X, Y), osoba(X, _, _, kobieta, _), X\=Y.
+dziadkowie(X, Z) :- rodzic(X, Y), rodzic(Y, Z), X\=Z.
+rodzeñstwo(X, Y) :- rodzic(Z, X), rodzic(Z, Y),X\=Y, Z\=null.
+wnuk(X, Y) :- dziadkowie(Y, X), osoba(X, _, _, mê¿czyzna, _), X\=Y.
+wnuczka(X, Y) :- dziadkowie(Y, X), osoba(X, _, _, kobieta, _), X\=Y.
+przodek(X, Y) :- rodzic(X, Y);( rodzic(X, Z), przodek(Z, Y)), X\=Y.
+potomek(X, Y) :- przodek(Y, X).
+bratanica(X, Y) :- brat(Z, Y), córka(X, Z), X\=Y.
+siostrzenica(X, Y) :- siostra(Z, Y), córka(X, Z), X\=Y.
+bratanek(X, Y) :- brat(Z, Y), syn(X, Z), X\=Y.
+siostrzeniec(X, Y) :- siostra(Z, Y), syn(X, Z), X\=Y.
+
+
+
+
