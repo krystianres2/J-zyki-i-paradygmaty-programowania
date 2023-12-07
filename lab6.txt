@@ -1,0 +1,43 @@
+(+ 2 (/ (* 3 4) 8)) //zad1
+(+ (sin 12) (cos (mod 256 32))) //zad2
+(defun suma(x y) (+ x y)) //zad3
+
+//zad4
+(defun parzysta (n)
+  (if (= 0 (mod n 2))
+      (print "Liczba jest parzysta.")
+      (print "Liczba nie jest parzysta.")))
+
+//zad5
+(defun silnia (n)
+	if (> n 0)
+		(* n silnia(- n 1)))
+		1
+	)	
+	
+//zad6
+(defun fibonacci (n)
+  (if (<= n 0)
+      0
+      (if (= n 1)
+          1
+          (+ (fibonacci (- n 1))
+             (fibonacci (- n 2))))))
+			 
+
+//zad7
+(defun nieparzyste (a b)
+    (do (
+        (i a (incf i))
+        (suma 0)
+    )
+    ((> i b) suma)
+    (when (oddp i) (setq suma (+ suma i)))
+    )    
+)
+
+(defun suma-kwadratow (a b)
+  (let ((suma 0))
+    (loop for i from a to b
+          do (setq suma (+ suma (* i i))))
+    suma))
